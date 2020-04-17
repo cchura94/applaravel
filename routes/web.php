@@ -37,4 +37,20 @@ Route::get("/nombre/{nombre}/edad/{ed}", function($nombre, $e){
     return ["nombre" => $nombre, "edad" => $e];
 });
 
+Route::get("/contacto", function(){
+    return view("contactenos");
+});
 
+Route::get("/acerca", function(){
+    return view("nosotros");
+})->name("acerca_de_nosotros");
+
+Route::get("/persona", "PersonaController@listar");
+
+Route::get("/persona/crear", "PersonaController@nuevo");
+
+Route::get("/persona/{id}", "PersonaController@mostrar");
+
+Route::get("/persona/{id}/editar", "PersonaController@editar");
+
+Route::resource("/categoria", "CategoriaController");
