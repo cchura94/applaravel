@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('inicio');
 });
 
 Route::get('/saludo', function(){
@@ -54,3 +54,7 @@ Route::get("/persona/{id}", "PersonaController@mostrar");
 Route::get("/persona/{id}/editar", "PersonaController@editar");
 
 Route::resource("/categoria", "CategoriaController");
+
+Route::resource("/producto", "ProductoController");
+Route::resource("/proveedor", "ProveedorController");
+Route::resource("/usuario", "UsuarioController");
