@@ -45,7 +45,7 @@ Route::get("/acerca", function(){
     return view("nosotros");
 })->name("acerca_de_nosotros");
 
-Route::get("/persona", "PersonaController@listar");
+Route::get("/persona", "PersonaController@listar")->name("lista_personas");
 
 Route::get("/persona/crear", "PersonaController@nuevo");
 
@@ -58,3 +58,5 @@ Route::resource("/categoria", "CategoriaController");
 Route::resource("/producto", "ProductoController");
 Route::resource("/proveedor", "ProveedorController");
 Route::resource("/usuario", "UsuarioController");
+
+Route::resource("/rol", "RolController");
