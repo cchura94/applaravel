@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoriaController extends Controller
 {
@@ -16,9 +17,11 @@ class CategoriaController extends Controller
         //Lista de categorias
         $dato = "Lista de Productos desde Index";
 
+        return $categorias = DB::select("select * from categorias where id = ?", [2]);
+
         //return view("admin.categoria.listar", ["dato" => $dato]);
         //return view("admin.categoria.listar")->with("dato", $dato);
-        return view("admin.categoria.listar", compact("dato"));
+        return view("admin.categoria.listar", compact("dato", "categorias"));
     }
 
     /**
