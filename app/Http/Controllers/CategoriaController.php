@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Categoria; //importar el modelo Categoria
 
 class CategoriaController extends Controller
 {
@@ -16,8 +17,8 @@ class CategoriaController extends Controller
     {
         //Lista de categorias
         $dato = "Lista de Productos desde Index";
-
-        return $categorias = DB::select("select * from categorias where id = ?", [2]);
+        $categorias = Categoria::All();
+        //return $categorias = DB::select("select * from categorias where id = ?", [2]);
 
         //return view("admin.categoria.listar", ["dato" => $dato]);
         //return view("admin.categoria.listar")->with("dato", $dato);
@@ -44,6 +45,13 @@ class CategoriaController extends Controller
     public function store(Request $request)
     {
         //Guardar la informacion de la categoria
+        //return $request;
+        $c1 = new Categoria;
+        $c1->nombre = $request->nombre;
+        $c1->descripcion = $request->descripcion;
+        $c1->save();
+
+        return redirect("/categoria");
     }
 
     /**
