@@ -17,7 +17,7 @@ class CategoriaController extends Controller
     {
         //Lista de categorias
         $dato = "Lista de Productos desde Index";
-        $categorias = Categoria::All();
+        $categorias = Categoria::paginate(3);
         //return $categorias = DB::select("select * from categorias where id = ?", [2]);
 
         //return view("admin.categoria.listar", ["dato" => $dato]);
@@ -44,14 +44,19 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            "nombre" => "required|min:3|max:30|unique:categorias",
+            
+        ]);
+
         //Guardar la informacion de la categoria
         //return $request;
         $c1 = new Categoria;
         $c1->nombre = $request->nombre;
         $c1->descripcion = $request->descripcion;
-        $c1->save();
+        $c1->save(); //guardamos la información
 
-        return redirect("/categoria");
+        return redirect("/categoria")->with("ok", "La categoria se ha registrado");
     }
 
     /**
@@ -63,7 +68,8 @@ class CategoriaController extends Controller
     public function show($id)
     {
         //mostrar la informacion de una categoria
-        return view("admin.categoria.mostrar");
+        $categoria = Categoria::find($id);
+        return view("admin.categoria.mostrar", compact("categoria"));
     }
 
     /**
@@ -75,7 +81,8 @@ class CategoriaController extends Controller
     public function edit($id)
     {
         //Cargar un formulario con datos de un recurso
-        return view("admin.categoria.editar");
+        $categoria = Categoria::find($id);
+        return view("admin.categoria.editar", compact("categoria"));
     }
 
     /**
@@ -87,7 +94,18 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            "nombre" => "required|min:3|max:30",            
+        ]);
+
         //Modificar los datos en la base de datos
+        //return $request;
+        $c = Categoria::find($id);
+        $c->nombre = $request->nombre;
+        $c->descripcion = $request->descripcion;
+        $c->save();
+
+        return redirect("/categoria")->with("ok", "La categoria se ha modificado");
     }
 
     /**
@@ -99,5 +117,8 @@ class CategoriaController extends Controller
     public function destroy($id)
     {
         //Eliminar un recurso de categoria
+        $c = Categoria::find($id);
+        $c->delete();
+        return redirect("/categoria")->with('ok', "La categoria se ha eliminado");
     }
 }
