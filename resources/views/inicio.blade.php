@@ -10,21 +10,21 @@
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="/img/foto1.jpg" class="d-block w-100 vh-100" alt="...">
+      <img src="{{ asset('/img/foto1.jpg') }}" class="d-block w-100 vh-100" alt="...">
       <div class="carousel-caption d-none d-md-block">
         <h5>First slide label</h5>
         <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="/img/foto2.jpg" class="d-block w-100 vh-100" alt="...">
+      <img src="{{ asset('/img/foto2.jpg') }}" class="d-block w-100 vh-100" alt="...">
       <div class="carousel-caption d-none d-md-block">
         <h5>Second slide label</h5>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="/img/foto3.jpg" class="d-block w-100 vh-100" alt="...">
+      <img src="{{ asset('/img/foto3.jpg') }}" class="d-block w-100 vh-100" alt="...">
       <div class="carousel-caption d-none d-md-block">
         <h5>Third slide label</h5>
         <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
@@ -77,5 +77,18 @@
     
     </div>
 </div>
+
+<div id="map" width="500px" height="500px"></div>
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 8
+        });
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"
+    async defer></script>
 
 @endsection

@@ -53,10 +53,13 @@ Route::get("/persona/{id}", "PersonaController@mostrar");
 
 Route::get("/persona/{id}/editar", "PersonaController@editar");
 
-Route::resource("/categoria", "CategoriaController");
 
-Route::resource("/producto", "ProductoController");
-Route::resource("/proveedor", "ProveedorController");
-Route::resource("/usuario", "UsuarioController");
-
-Route::resource("/rol", "RolController");
+Route::prefix('admin')->group(function () {
+    
+    Route::resource("/categoria", "CategoriaController");
+    Route::resource("/producto", "ProductoController");
+    Route::resource("/proveedor", "ProveedorController");
+    Route::resource("/usuario", "UsuarioController");
+    Route::resource("/rol", "RolController");
+    
+});

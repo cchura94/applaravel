@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Producto;
+use App\Categoria;
+use App\Proveedor;
 
 class ProductoController extends Controller
 {
@@ -13,7 +16,8 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        return view("admin.producto.listar");
+        $productos = Producto::paginate(10);
+        return view("admin.producto.listar", compact('productos'));
     }
 
     /**
@@ -23,7 +27,10 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        //
+        $categorias = Categoria::All();
+        $proveedores = Proveedor::All();
+        
+        return view("admin.producto.nuevo", compact('categorias', 'proveedores'));
     }
 
     /**
@@ -34,7 +41,26 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $p = new Producto;
+        $p->nombre = $request->nombre;
+        $p->cantidad = $request->cantidad;
+        $p->precio = $request->precio;
+        $p->descripcion = $request->descripcion;
+        $p->categoria_id = $request->categoria_id;
+        $p->proveedor_id = $request->proveedor_id;
+
+        $nombre_imagen = '-';
+        if($file = $request->file('imagen')){
+            //obtenemos el nombre del archivo
+             $nombre_imagen = $file->getClientOriginalName();
+             $file->move('imagenes', $nombre_imagen); 
+        }
+        
+        $p->imagen = "imagenes/".$nombre_imagen;
+        $p->save();
+
+        return redirect("/producto");
+
     }
 
     /**
